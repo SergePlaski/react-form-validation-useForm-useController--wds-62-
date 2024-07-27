@@ -117,12 +117,36 @@ export function FormValidation() {
 					inputId sets the name property of the rendered <select>.
 					This way, the label is still linked corecltly (by name) 
 					and does not cause the render issues reported by browser.
+					IMPORTANT: id and inputId must have different values.
+
+					CUSTOM STYLING is done by including the `styles` prop as below. 
+          https://react-select.com/styles
+          As an option, the `unstyled` prop removes all the presentational styles 
+          from React Select (leaving some important functional styles, 
+          like those for menu positioning and input width in multi select).
 				*/}
 				<ReactSelect
 					isClearable
 					classNamePrefix='react-select'
 					id='select-country'
 					inputId='country'
+					styles={{
+						container: baseStyles => ({
+							...baseStyles,
+							fontSize: "0.9rem",
+						}),
+						valueContainer: baseStyles => ({
+							...baseStyles,
+							fontSize: "inherit",
+						}),
+						option: (baseStyles, state) => ({
+							...baseStyles,
+							fontSize: "inherit",
+							fontWeight: state.isFocused ? "bold" : "normal",
+							color: "#333",
+							backgroundColor: state.isFocused ? "orange" : "inherit",
+						}),
+					}}
 					options={COUNTRY_OPTIONS}
 					{...countryField}
 				/>
